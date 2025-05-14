@@ -1851,96 +1851,61 @@
                     card.style.transform = 'rotateY(0deg) rotateX(0deg)';
                 });
             });
-            // Replace this in your script section
-(function() {
-    // Initialize EmailJS with your User ID
-    emailjs.init('uZD_Kg7ejRLA3yUTn'); // Replace with your actual EmailJS user ID
-})();
-            // Contact form submission
-            const contactForm = document.getElementById('contactForm');
-            const statusElement = document.getElementById('status');
-            
-            contactForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                // Show loading state
-                const submitBtn = this.querySelector('button[type="submit"]');
-                const originalText = submitBtn.textContent;
-                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-                submitBtn.disabled = true;
-                statusElement.textContent = '';
-                
-                // Get form data
-                const formData = {
-                    name: document.getElementById('name').value,
-                    email: document.getElementById('email').value,
-                    subject: document.getElementById('subject').value,
-                    message: document.getElementById('message').value
-                };
-                
-                // Send email using EmailJS
-                emailjs.send('service_jfx1a2t', 'template_964hb9m', formData)
-                    .then(() => {
-                        // Success message
-                        statusElement.textContent = '✅ Email sent successfully!';
-                        statusElement.style.color = '#4CAF50';
-                        contactForm.reset();
-                    }, (error) => {
-                        // Error message
-                        statusElement.textContent = '❌ Failed to send email. Please try again.';
-                        statusElement.style.color = '#f44336';
-                        console.error('EmailJS Error:', error);
-                    })
-                    .finally(() => {
-                        // Reset button state
-                        submitBtn.innerHTML = originalText;
-                        submitBtn.disabled = false;
-                        
-                        // Hide status message after 5 seconds
-                        setTimeout(() => {
-                            statusElement.textContent = '';
-                        }, 5000);
-                    });
-            });
         });
     </script>
-<!-- Code injected by live-server -->
-<script>
-	// <![CDATA[  <-- For SVG support
-	if ('WebSocket' in window) {
-		(function () {
-			function refreshCSS() {
-				var sheets = [].slice.call(document.getElementsByTagName("link"));
-				var head = document.getElementsByTagName("head")[0];
-				for (var i = 0; i < sheets.length; ++i) {
-					var elem = sheets[i];
-					var parent = elem.parentElement || head;
-					parent.removeChild(elem);
-					var rel = elem.rel;
-					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
-						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
-					}
-					parent.appendChild(elem);
-				}
-			}
-			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-			var address = protocol + window.location.host + window.location.pathname + '/ws';
-			var socket = new WebSocket(address);
-			socket.onmessage = function (msg) {
-				if (msg.data == 'reload') window.location.reload();
-				else if (msg.data == 'refreshcss') refreshCSS();
-			};
-			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-				console.log('Live reload enabled.');
-				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-			}
-		})();
-	}
-	else {
-		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-	}
-	// ]]>
+    <script>
+    // Wait for DOM to load
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize EmailJS with your credentials
+        emailjs.init('uZD_Kg7ejRLA3yUTn');
+
+        // Contact form submission
+        const contactForm = document.getElementById('contactForm');
+        const statusElement = document.getElementById('status');
+        
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Show loading state
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            submitBtn.disabled = true;
+            statusElement.textContent = '';
+            
+            // Get form data - using your parameter names
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                subject: document.getElementById('subject').value,
+                message: document.getElementById('message').value
+            };
+            
+            // Send email using EmailJS with your service and template IDs
+            emailjs.send('service_jfx1a2t', 'template_964hb9m', formData)
+                .then(() => {
+                    // Success message
+                    statusElement.textContent = '✅ Email sent successfully!';
+                    statusElement.style.color = '#4CAF50';
+                    contactForm.reset();
+                }, (error) => {
+                    // Error message
+                    statusElement.textContent = '❌ Failed to send email. Please try again.';
+                    statusElement.style.color = '#f44336';
+                    console.error('EmailJS Error:', error);
+                })
+                .finally(() => {
+                    // Reset button state
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    
+                    // Hide status message after 5 seconds
+                    setTimeout(() => {
+                        statusElement.textContent = '';
+                    }, 5000);
+                });
+        });
+    });
 </script>
 </body>
 </html>
